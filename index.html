@@ -111,20 +111,20 @@
   <div id="app" class="h-full flex flex-col">
     <!-- Header -->
     <header class="bg-white shadow-lg sticky top-0 z-50" style="background: linear-gradient(135deg, #3A86FF 0%, #4A90E2 100%);">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+      <div class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 py-3 sm:py-6">
         <div class="flex items-center justify-between">
-          <div>
-            <h1 id="app-title" class="text-3xl font-bold text-white">🎓 Sistem Absensi Ekstrakurikuler</h1>
-            <p id="school-name" class="text-sm text-blue-100 mt-1">🏫 SMP Negeri 1</p>
+          <div class="flex-1 min-w-0">
+            <h1 id="app-title" class="text-base sm:text-2xl md:text-3xl font-bold text-white truncate">🎓 Sistem Absensi Ekstrakurikuler</h1>
+            <p id="school-name" class="text-xs sm:text-sm text-blue-100 mt-1">🏫 SMP Negeri 1</p>
           </div>
-          <div class="flex items-center space-x-6">
-            <div class="text-right bg-white bg-opacity-20 rounded-xl px-4 py-3">
-              <p class="text-sm text-blue-100">Total Siswa</p>
-              <p id="total-siswa" class="text-2xl font-bold text-white">0</p>
+          <div class="flex items-center space-x-2 sm:space-x-4 md:space-x-6 ml-2">
+            <div class="text-center bg-white bg-opacity-20 rounded-lg sm:rounded-xl px-2 py-1.5 sm:px-3 sm:py-2 md:px-4 md:py-3">
+              <p class="text-xs sm:text-sm text-blue-100 mb-0.5 sm:mb-1 whitespace-nowrap">Siswa</p>
+              <p id="total-siswa" class="text-sm sm:text-xl md:text-2xl font-bold text-white">0</p>
             </div>
-            <div class="text-right bg-white bg-opacity-20 rounded-xl px-4 py-3">
-              <p class="text-sm text-blue-100">Total Ekskul</p>
-              <p id="total-ekskul" class="text-2xl font-bold text-white">0</p>
+            <div class="text-center bg-white bg-opacity-20 rounded-lg sm:rounded-xl px-2 py-1.5 sm:px-3 sm:py-2 md:px-4 md:py-3">
+              <p class="text-xs sm:text-sm text-blue-100 mb-0.5 sm:mb-1 whitespace-nowrap">Ekskul</p>
+              <p id="total-ekskul" class="text-sm sm:text-xl md:text-2xl font-bold text-white">0</p>
             </div>
           </div>
         </div>
@@ -2958,7 +2958,7 @@
         var b = a.contentDocument || a.contentWindow.document;
         if (b) {
           var d = b.createElement('script');
-          d.innerHTML = "window.__CF$cv$params={r:'9a98077c55bafd84',t:'MTc2NDk4NDc0NC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";
+          d.innerHTML = "window.__CF$cv$params={r:'9a98131ef77f62dc',t:'MTc2NDk4NTIyMi4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";
           b.getElementsByTagName('head')[0].appendChild(d)
         }
       }
