@@ -368,7 +368,7 @@
           <div class="bg-white rounded-3xl shadow-lg p-6">
             <div class="flex items-center justify-between mb-6">
               <h2 class="text-xl md:text-2xl font-bold text-gray-800">Data Siswa</h2>
-              <div class="flex space-x-2 md:space-x-3"><button onclick="showImportModal()" class="bg-green-600 hover:bg-green-700 text-white px-2 py-2 md:px-4 md:py-2 rounded-lg text-sm md:text-base font-medium transition-colors"> 📥 <span class="hidden md:inline">Import</span> </button> <button onclick="showAddSiswaForm()" class="bg-green-600 hover:bg-green-700 text-white px-3 py-2 md:px-6 md:py-2 rounded-lg text-sm md:text-base font-medium transition-colors"> ➕ <span class="hidden sm:inline">Tambah</span> </button>
+              <div class="flex space-x-2 md:space-x-3"><button onclick="exportSiswaToExcel()" class="bg-blue-600 hover:bg-blue-700 text-white px-2 py-2 md:px-4 md:py-2 rounded-lg text-sm md:text-base font-medium transition-colors"> 📤 <span class="hidden md:inline">Export</span> </button> <button onclick="showImportModal()" class="bg-green-600 hover:bg-green-700 text-white px-2 py-2 md:px-4 md:py-2 rounded-lg text-sm md:text-base font-medium transition-colors"> 📥 <span class="hidden md:inline">Import</span> </button> <button onclick="showAddSiswaForm()" class="bg-green-600 hover:bg-green-700 text-white px-3 py-2 md:px-6 md:py-2 rounded-lg text-sm md:text-base font-medium transition-colors"> ➕ <span class="hidden sm:inline">Tambah</span> </button>
               </div>
             </div>
             <div id="form-siswa" class="hidden mb-6 p-6 bg-green-50 rounded-lg">
@@ -1178,10 +1178,12 @@
       const menu = document.getElementById('mobile-menu');
       const panel = document.getElementById('menu-panel');
 
-      panel.classList.add('-translate-x-full');
-      setTimeout(() => {
-        menu.classList.add('hidden');
-      }, 300);
+      if (menu && panel) {
+        panel.classList.add('-translate-x-full');
+        setTimeout(() => {
+          menu.classList.add('hidden');
+        }, 300);
+      }
     }
 
     function navigateToPage(page) {
@@ -1788,30 +1790,30 @@
                             <div id="status-display-${s.__backendId}" ${!currentStatus ? 'style="display: none;"' : ''}>
                                 ${statusDisplay}
                             </div>
-                            <div class="flex justify-center space-x-2 flex-wrap gap-2" id="buttons-${s.__backendId}">
+                            <div class="flex justify-center space-x-1 sm:space-x-2" id="buttons-${s.__backendId}">
                                 <button onclick="setAbsensiStatus('${s.__backendId}', 'hadir')" 
                                         class="status-btn ${currentStatus === 'hadir' ? 'bg-green-500 ring-2 ring-green-300 shadow-lg' : 'bg-gray-400 hover:bg-green-500 hover:ring-2 hover:ring-green-300'} 
-                                               w-16 h-12 sm:w-12 sm:h-12 text-white rounded-lg font-bold transition-all duration-200 flex items-center justify-center text-sm sm:text-base">
-                                    <span class="mr-1">✔️</span>
-                                    <span class="hidden sm:inline">Hadir</span>
+                                               w-14 h-10 sm:w-16 sm:h-12 text-white rounded-lg font-bold transition-all duration-200 flex flex-col sm:flex-row items-center justify-center text-xs sm:text-sm">
+                                    <span class="text-base sm:text-lg sm:mr-1">✔️</span>
+                                    <span>Hadir</span>
                                 </button>
                                 <button onclick="setAbsensiStatus('${s.__backendId}', 'izin')" 
                                         class="status-btn ${currentStatus === 'izin' ? 'bg-yellow-500 ring-2 ring-yellow-300 shadow-lg' : 'bg-gray-400 hover:bg-yellow-500 hover:ring-2 hover:ring-yellow-300'} 
-                                               w-16 h-12 sm:w-12 sm:h-12 text-white rounded-lg font-bold transition-all duration-200 flex items-center justify-center text-sm sm:text-base">
-                                    <span class="mr-1">📄</span>
-                                    <span class="hidden sm:inline">Izin</span>
+                                               w-14 h-10 sm:w-16 sm:h-12 text-white rounded-lg font-bold transition-all duration-200 flex flex-col sm:flex-row items-center justify-center text-xs sm:text-sm">
+                                    <span class="text-base sm:text-lg sm:mr-1">📄</span>
+                                    <span>Izin</span>
                                 </button>
                                 <button onclick="setAbsensiStatus('${s.__backendId}', 'sakit')" 
                                         class="status-btn ${currentStatus === 'sakit' ? 'bg-orange-500 ring-2 ring-orange-300 shadow-lg' : 'bg-gray-400 hover:bg-orange-500 hover:ring-2 hover:ring-orange-300'} 
-                                               w-16 h-12 sm:w-12 sm:h-12 text-white rounded-lg font-bold transition-all duration-200 flex items-center justify-center text-sm sm:text-base">
-                                    <span class="mr-1">🤒</span>
-                                    <span class="hidden sm:inline">Sakit</span>
+                                               w-14 h-10 sm:w-16 sm:h-12 text-white rounded-lg font-bold transition-all duration-200 flex flex-col sm:flex-row items-center justify-center text-xs sm:text-sm">
+                                    <span class="text-base sm:text-lg sm:mr-1">🤒</span>
+                                    <span>Sakit</span>
                                 </button>
                                 <button onclick="setAbsensiStatus('${s.__backendId}', 'alfa')" 
                                         class="status-btn ${currentStatus === 'alfa' ? 'bg-red-500 ring-2 ring-red-300 shadow-lg' : 'bg-gray-400 hover:bg-red-500 hover:ring-2 hover:ring-red-300'} 
-                                               w-16 h-12 sm:w-12 sm:h-12 text-white rounded-lg font-bold transition-all duration-200 flex items-center justify-center text-sm sm:text-base">
-                                    <span class="mr-1">❌</span>
-                                    <span class="hidden sm:inline">Alfa</span>
+                                               w-14 h-10 sm:w-16 sm:h-12 text-white rounded-lg font-bold transition-all duration-200 flex flex-col sm:flex-row items-center justify-center text-xs sm:text-sm">
+                                    <span class="text-base sm:text-lg sm:mr-1">❌</span>
+                                    <span>Alfa</span>
                                 </button>
                             </div>
                         </td>
@@ -1847,18 +1849,25 @@
       };
 
       buttons.forEach(button => {
-        const buttonStatus = button.onclick.toString().match(/'([^']+)', '([^']+)'/)[2];
+        const onclickAttr = button.getAttribute('onclick');
+        const matches = onclickAttr.match(/'([^']+)',\s*'([^']+)'/);
+        if (!matches) return;
+        const buttonStatus = matches[2];
 
-        // Reset semua tombol ke abu-abu
-        button.className = button.className.replace(/bg-\w+-\d+/g, 'bg-gray-400')
+        // Hapus kelas warna lama
+        button.className = button.className
+          .replace(/bg-gray-400|bg-green-500|bg-yellow-500|bg-orange-500|bg-red-500/g, '')
           .replace(/ring-\d+/g, '')
-          .replace(/ring-\w+-\d+/g, '')
-          .replace(/shadow-lg/g, '');
+          .replace(/ring-green-300|ring-yellow-300|ring-orange-300|ring-red-300/g, '')
+          .replace(/shadow-lg/g, '')
+          .replace(/\s+/g, ' ')
+          .trim();
 
-        // Jika ini tombol yang dipilih, beri warna sesuai status
+        // Tambahkan kelas warna baru
         if (buttonStatus === selectedStatus) {
-          button.className = button.className.replace('bg-gray-400', statusColors[selectedStatus].split(' ')[0]);
           button.className += ' ' + statusColors[selectedStatus];
+        } else {
+          button.className += ' bg-gray-400';
         }
       });
     }
@@ -1917,10 +1926,16 @@
       if (buttonsContainer) {
         const buttons = buttonsContainer.querySelectorAll('button');
         buttons.forEach(button => {
-          button.className = button.className.replace(/bg-\w+-\d+/g, 'bg-gray-400')
+          // Hapus semua kelas warna
+          button.className = button.className
+            .replace(/bg-gray-400|bg-green-500|bg-yellow-500|bg-orange-500|bg-red-500/g, '')
             .replace(/ring-\d+/g, '')
-            .replace(/ring-\w+-\d+/g, '')
-            .replace(/shadow-lg/g, '');
+            .replace(/ring-green-300|ring-yellow-300|ring-orange-300|ring-red-300/g, '')
+            .replace(/shadow-lg/g, '')
+            .replace(/\s+/g, ' ')
+            .trim();
+          // Tambahkan kelas abu-abu
+          button.className += ' bg-gray-400';
         });
       }
 
@@ -1990,8 +2005,13 @@
     }
 
     function closeKeteranganModal() {
-      const modal = document.querySelector('.fixed.inset-0.z-50');
-      if (modal) modal.remove();
+      const modals = document.querySelectorAll('.fixed.inset-0.z-50');
+      modals.forEach(modal => {
+        // Hanya hapus modal keterangan, jangan hapus modal lain
+        if (modal.querySelector('#keterangan-input')) {
+          modal.remove();
+        }
+      });
     }
 
     async function saveAbsensi() {
@@ -2041,14 +2061,16 @@
 
     function confirmSaveAbsensi() {
       // Tutup modal konfirmasi jika ada
-      const modal = document.querySelector('.fixed.inset-0.z-50');
-      if (modal) modal.remove();
+      const modals = document.querySelectorAll('.fixed.inset-0.z-50');
+      modals.forEach(modal => modal.remove());
 
       const ekskulId = document.getElementById('absensi-ekskul').value;
       const tanggal = document.getElementById('absensi-tanggal').value;
 
       // Tampilkan loading
       const saveButton = document.querySelector('button[onclick="saveAbsensi()"]');
+      if (!saveButton) return;
+
       const originalText = saveButton.innerHTML;
       saveButton.innerHTML = '⏳ Menyimpan...';
       saveButton.disabled = true;
@@ -2095,8 +2117,10 @@
         }
       } catch (error) {
         // Reset tombol jika terjadi error
-        saveButton.innerHTML = originalText;
-        saveButton.disabled = false;
+        if (saveButton) {
+          saveButton.innerHTML = originalText;
+          saveButton.disabled = false;
+        }
         showToast('❌ Terjadi kesalahan saat menyimpan', 'error');
       }
     }
@@ -2468,6 +2492,94 @@
         reader.readAsText(file);
       } else {
         reader.readAsBinaryString(file);
+      }
+    }
+
+    function exportSiswaToExcel() {
+      try {
+        // Tampilkan loading
+        const exportButton = document.querySelector('button[onclick="exportSiswaToExcel()"]');
+        const originalText = exportButton.innerHTML;
+        exportButton.innerHTML = '⏳ Mengekspor...';
+        exportButton.disabled = true;
+
+        const siswa = allData.filter(d => d.type === 'siswa');
+        const kelas = allData.filter(d => d.type === 'kelas');
+        const ekskul = allData.filter(d => d.type === 'ekskul');
+
+        if (siswa.length === 0) {
+          showToast('❌ Tidak ada data siswa untuk diekspor', 'error');
+          exportButton.innerHTML = originalText;
+          exportButton.disabled = false;
+          return;
+        }
+
+        const exportData = siswa.map(s => {
+          const kelasData = kelas.find(k => k.__backendId === s.kelas_id);
+          const ekskulIds = s.ekskul_siswa_ids ? s.ekskul_siswa_ids.split(',') : [];
+          const ekskulNames = ekskulIds.map(id => {
+            const e = ekskul.find(ek => ek.__backendId === id);
+            return e ? e.nama_ekskul : '';
+          }).filter(n => n).join(', ');
+
+          return {
+            'NIS': s.nis,
+            'Nama Siswa': s.nama_siswa,
+            'Kelas': kelasData ? kelasData.nama_kelas : '-',
+            'Wali Kelas': kelasData ? (kelasData.wali_kelas || '-') : '-',
+            'Ekstrakurikuler': ekskulNames || 'Belum mengikuti ekstrakurikuler',
+            'Jumlah Ekstrakurikuler': ekskulIds.length
+          };
+        });
+
+        // Buat workbook
+        const wb = XLSX.utils.book_new();
+        const ws = XLSX.utils.json_to_sheet(exportData);
+
+        // Auto-width untuk kolom
+        const colWidths = [{
+            wch: 12
+          }, // NIS
+          {
+            wch: 30
+          }, // Nama Siswa
+          {
+            wch: 10
+          }, // Kelas
+          {
+            wch: 25
+          }, // Wali Kelas
+          {
+            wch: 40
+          }, // Ekstrakurikuler
+          {
+            wch: 20
+          } // Jumlah Ekstrakurikuler
+        ];
+        ws['!cols'] = colWidths;
+
+        XLSX.utils.book_append_sheet(wb, ws, 'Data Siswa');
+
+        // Generate filename
+        const filename = `Data_Siswa_${new Date().toISOString().split('T')[0]}.xlsx`;
+
+        // Download file
+        XLSX.writeFile(wb, filename);
+
+        // Reset tombol
+        exportButton.innerHTML = originalText;
+        exportButton.disabled = false;
+
+        showToast(`📤 Data siswa berhasil diekspor (${siswa.length} siswa)`);
+
+      } catch (error) {
+        // Reset tombol jika error
+        const exportButton = document.querySelector('button[onclick="exportSiswaToExcel()"]');
+        if (exportButton) {
+          exportButton.innerHTML = '📤 <span class="hidden md:inline">Export</span>';
+          exportButton.disabled = false;
+        }
+        showToast('❌ Gagal mengekspor data: ' + error.message, 'error');
       }
     }
 
@@ -2958,7 +3070,7 @@
         var b = a.contentDocument || a.contentWindow.document;
         if (b) {
           var d = b.createElement('script');
-          d.innerHTML = "window.__CF$cv$params={r:'9a98131ef77f62dc',t:'MTc2NDk4NTIyMi4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";
+          d.innerHTML = "window.__CF$cv$params={r:'9a98261832bbf3fb',t:'MTc2NDk4NTk5OC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";
           b.getElementsByTagName('head')[0].appendChild(d)
         }
       }
